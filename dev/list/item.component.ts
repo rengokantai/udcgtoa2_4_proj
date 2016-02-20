@@ -2,25 +2,28 @@
  * Created by Hernan Y.Ke on 2016/2/19.
  */
 import {Component,EventEmitter} from 'angular2/core';
+import {NewComponent} from "./new.component";
 import {listItem} from "../itemtype";
 
-
 @Component({
-    selector:'new-item',
+    selector:'items',
     template:`
         <label for="name">name</label>
     <input type="text" id="name" [(ngModel)]="item.name">
     <label for="amount">amount</label>
     <input type="text" id="amount" [(ngModel)]="item.amount">
-    <button (click)="onItemAdd()">add</button>
+    <button (click)="onItemDelete()">remove</button>
     `,
-    outputs:['itemadd']
+    inputs:['item'],
+    outputs:['removed']
 })
 
-export class NewComponent{
-    item={name:'',amount:0};
-    itemadd=new EventEmitter<listItem>();
-    onItemAdd(){
-        this.itemadd.emit(this.item);
+
+export class ItemComponent{
+    item = {name:'',amount:0};
+    removed=new EventEmitter<listItem>();
+    onItemDelete(){
+        this.removed.emit(this.item);
     }
+
 }
